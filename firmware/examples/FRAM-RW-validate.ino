@@ -1,3 +1,5 @@
+#include "FRAM/FRAM.h"
+
 /*
 This example demonstrates how the FRAM library is used to:
 
