@@ -1,6 +1,3 @@
-#include "FRAM.h"
-SYSTEM_MODE(SEMI_AUTOMATIC);
-
 /*
 This example demonstrates how the FRAM library is used to:
 
