@@ -1,0 +1,4 @@
+# Mac-related
+*.DS_Store
+*.Thumbs.db
+*spark.ignore
