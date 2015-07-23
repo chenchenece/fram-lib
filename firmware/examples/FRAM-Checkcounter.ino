@@ -58,5 +58,5 @@ void loop() {
 
   Serial.println("\nPress any key to re-run the test!\n");
   while(Serial.available()) Serial.read();      // MAKESHIFT FLUSH
-  while(!Serial.available()) Spark.proces(); // PRESS ENTER TO CONTINUE
+  while(!Serial.available()) Spark.process(); // PRESS ENTER TO CONTINUE
 }

@@ -26,6 +26,8 @@ Maintained by Kennethlimcp
 #include "application.h"
 
 
+
+
 // Possible FRAM sizes
 enum framAvailSize
 {

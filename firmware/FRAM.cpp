@@ -26,8 +26,8 @@
  #define pinLO(_pin) (PIN_MAP[_pin].gpio_peripheral->BRR = PIN_MAP[_pin].gpio_pin)
  #define pinHI(_pin) (PIN_MAP[_pin].gpio_peripheral->BSRR = PIN_MAP[_pin].gpio_pin)
 #elif PLATFORM_ID == 6 // Photon
- #include "pinmap_impl.h"
- STM32_Pin_Info* PIN_MAP = HAL_Pin_Map(); // Pointer required for highest access speed
+ #include "pinmap_hal.h"
+ STM32_Pin_Info* PIN_MAP = HAL_Pin_Map();
  #define pinLO(_pin) (PIN_MAP[_pin].gpio_peripheral->BSRRH = PIN_MAP[_pin].gpio_pin)
  #define pinHI(_pin) (PIN_MAP[_pin].gpio_peripheral->BSRRL = PIN_MAP[_pin].gpio_pin)
 #else
