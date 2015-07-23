@@ -22,19 +22,19 @@
  Maintained by Kennethlimcp
  */
 
- #if PLATFORM_ID == 0 // Core
-   #define pinLO(_pin) (PIN_MAP[_pin].gpio_peripheral->BRR = PIN_MAP[_pin].gpio_pin)
-   #define pinHI(_pin) (PIN_MAP[_pin].gpio_peripheral->BSRR = PIN_MAP[_pin].gpio_pin)
- #elif PLATFORM_ID == 6 // Photon
-   #include "pinmap_impl.h"
-   STM32_Pin_Info* PIN_MAP = HAL_Pin_Map(); // Pointer required for highest access speed
-   #define pinLO(_pin) (PIN_MAP[_pin].gpio_peripheral->BSRRH = PIN_MAP[_pin].gpio_pin)
-   #define pinHI(_pin) (PIN_MAP[_pin].gpio_peripheral->BSRRL = PIN_MAP[_pin].gpio_pin)
- #else
-   #error "*** PLATFORM_ID not supported by this library. PLATFORM should be Core or Photon ***"
- #endif
- // fast pin access
- #define pinSet(_pin, _hilo) (_hilo ? pinHI(_pin) : pinLO(_pin))
+#if PLATFORM_ID == 0 // Core
+ #define pinLO(_pin) (PIN_MAP[_pin].gpio_peripheral->BRR = PIN_MAP[_pin].gpio_pin)
+ #define pinHI(_pin) (PIN_MAP[_pin].gpio_peripheral->BSRR = PIN_MAP[_pin].gpio_pin)
+#elif PLATFORM_ID == 6 // Photon
+ #include "pinmap_impl.h"
+ STM32_Pin_Info* PIN_MAP = HAL_Pin_Map(); // Pointer required for highest access speed
+ #define pinLO(_pin) (PIN_MAP[_pin].gpio_peripheral->BSRRH = PIN_MAP[_pin].gpio_pin)
+ #define pinHI(_pin) (PIN_MAP[_pin].gpio_peripheral->BSRRL = PIN_MAP[_pin].gpio_pin)
+#else
+ #error "*** PLATFORM_ID not supported by this library. PLATFORM should be Core or Photon ***"
+#endif
+// fast pin access
+#define pinSet(_pin, _hilo) (_hilo ? pinHI(_pin) : pinLO(_pin))
 
 #include "FRAM.h"
 
@@ -47,11 +47,11 @@ FRAM::FRAM(uint8_t chipSelect, framAvailSize framSize)
 }
 
 void FRAM::_enable(void){
-  pinLO[_cs];	//FRAM CS LOW
+  pinLO(_cs);	//FRAM CS LOW
 }
 
 void FRAM::_disable(void){
-  pinHI[_cs];	//FRAM CS HIGH
+  pinHI(_cs);	//FRAM CS HIGH
 }
 
 int8_t FRAM::_sendCMD(byte command){
