@@ -32,7 +32,7 @@ void loop() {
   unsigned long write_time;
   uint16_t add;
 
-  while(!Serial.available()) SPARK_WLAN_Loop(); // PRESS ENTER TO CONTINUE
+  while(!Serial.available()) Spark.process(); // PRESS ENTER TO CONTINUE
   Serial.println("Starting FRAM Validation test\n");
 
   if(fram_1.Present() == 1){
@@ -121,5 +121,5 @@ void loop() {
 
   Serial.println("\nPress any key to re-run the test!\n");
   while(Serial.available()) Serial.read();      // MAKESHIFT FLUSH
-  while(!Serial.available()) SPARK_WLAN_Loop(); // PRESS ENTER TO CONTINUE
+  while(!Serial.available()) Spark.proces(); // PRESS ENTER TO CONTINUE
 }

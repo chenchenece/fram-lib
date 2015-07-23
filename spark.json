@@ -1,8 +1,8 @@
 {
     "name": "FRAM",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "author": "Paul Kourany, Kenneth Lim",
     "license": "GPLv3",
-    "description": "FRAM library for the Spark Core."
+    "description": "FRAM library for Particle."
 
 }

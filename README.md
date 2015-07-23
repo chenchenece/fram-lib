@@ -14,4 +14,4 @@ The following functions are available in this library:
 
 You will be able to better understand how they can be used in this  [example](/firmware/examples/FRAM-RW-validate.ino).
 
-Updated on: 21 August 2014
+Updated on: 23 July 2015
