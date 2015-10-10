@@ -41,7 +41,7 @@ FRAM::FRAM(uint8_t chipSelect, framAvailSize framSize)
 }
 
 inline void FRAM::_enable(void){
-  pinRestFast(_cs);	//FRAM CS LOW
+  pinResetFast(_cs);	//FRAM CS LOW
 }
 
 inline void FRAM::_disable(void){
