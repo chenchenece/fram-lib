@@ -22,19 +22,13 @@
  Maintained by Kennethlimcp
  */
 
-#if PLATFORM_ID == 0 // Core
- #define pinLO(_pin) (PIN_MAP[_pin].gpio_peripheral->BRR = PIN_MAP[_pin].gpio_pin)
- #define pinHI(_pin) (PIN_MAP[_pin].gpio_peripheral->BSRR = PIN_MAP[_pin].gpio_pin)
-#elif PLATFORM_ID == 6 // Photon
- #include "pinmap_hal.h"
- STM32_Pin_Info* PIN_MAP = HAL_Pin_Map();
- #define pinLO(_pin) (PIN_MAP[_pin].gpio_peripheral->BSRRH = PIN_MAP[_pin].gpio_pin)
- #define pinHI(_pin) (PIN_MAP[_pin].gpio_peripheral->BSRRL = PIN_MAP[_pin].gpio_pin)
-#else
- #error "*** PLATFORM_ID not supported by this library. PLATFORM should be Core or Photon ***"
+#if !defined(PLATFORM_ID)		// Core v0.3.4
+#warning "CORE 0.3.4"
+  #define pinSetFast(_pin)	PIN_MAP[_pin].gpio_peripheral->BSRR = PIN_MAP[_pin].gpio_pin
+  #define pinResetFast(_pin)	PIN_MAP[_pin].gpio_peripheral->BRR = PIN_MAP[_pin].gpio_pin
+  #define digitalWriteFast(pin, value)	(value) ? pinSetFast(pin) : pinResetFast(pin)
 #endif
-// fast pin access
-#define pinSet(_pin, _hilo) (_hilo ? pinHI(_pin) : pinLO(_pin))
+
 
 #include "FRAM.h"
 
@@ -46,12 +40,12 @@ FRAM::FRAM(uint8_t chipSelect, framAvailSize framSize)
 	digitalWrite(_cs, HIGH);
 }
 
-void FRAM::_enable(void){
-  pinLO(_cs);	//FRAM CS LOW
+inline void FRAM::_enable(void){
+  pinRestFast(_cs);	//FRAM CS LOW
 }
 
-void FRAM::_disable(void){
-  pinHI(_cs);	//FRAM CS HIGH
+inline void FRAM::_disable(void){
+  pinSetFast(_cs);	//FRAM CS HIGH
 }
 
 int8_t FRAM::_sendCMD(byte command){
